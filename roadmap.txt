@@ -1,0 +1,32 @@
+1. O Endpoint e a Analogia do Uber
+
+  O Endpoint não é a rota (o caminho), ele é o Endereço de Destino (o ponto no mapa).
+
+O Verbo (GET, POST) é o motivo da viagem .
+
+GET : "Fui procurar uma encomenda" (Buscar dados).
+
+POST : "Fui entregar uma encomenda" (Enviar dados).
+
+A Rota Interna (Controlador/Serviço) aí sim é a trajetória que o motorista faz, virando as 
+esquinas (lógica) até chegar no destino.
+
+Então, Endpoint = Endereço . Se você errar uma letra do endereço ( /postagenem vez de /postagens),
+ou "Uber" (requisição) vai dizer que o lugar não existe (Erro 404).
+
+
+----------
+
+Controller + Service
+
+Controller : Recebe uma requisição HTTP (a rota), usa o serviço para processar a lógica de negócio, e
+retorna uma resposta (JSON, HTML, etc.).
+
+Service (ou Camada de Negócios): Contém a lógica de negócio principal, sem se preocupar
+com HTTP ou banco de dados diretamente. Ele é "injetado" no controlador.
+
+Injeção de Dependência (DI): É o mecanismo que entrega o Serviço (ou suas interfaces) ao 
+Controlador, geralmente via construtor, sem que o Controlador precise criá-lo.
+
+Rota : Definida no framework (ex: ASP.NET Core, Laravel), mapeia uma URL para um 
+método específico no Controller. 
