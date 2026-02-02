@@ -11,11 +11,14 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
 import { Postagem } from '../entities/postagem.entity';
 import { PostagemService } from '../services/postagem.service';
 
+@ApiTags('Postagem')
 @UseGuards(JwtAuthGuard)
+@ApiBearerAuth()
 @Controller('/postagens')
 export class PostagemController {
   constructor(private readonly postagemService: PostagemService) {}
@@ -29,12 +32,18 @@ export class PostagemController {
   @Get('/:id')
   @HttpCode(HttpStatus.OK)
   findById(@Param('id', ParseIntPipe) id: number): Promise<Postagem> {
-    return this.postagemService.findById(id);
+    /**
+     * Recupera uma única entidade Postagem pelo seu identificador único.
+     * @param id - O identificador único da Postagem a ser recuperada, extraído do parâmetro da rota e automaticamente convertido para número usando ParseIntPipe.
+     * O ParseIntPipe garante que o parâmetro id recebido seja convertido para número e lança um erro caso a conversão falhe.
+     */
+    // Busca uma postagem pelo id
+    return this.postagemService.findById(id); // Chama o método findById da classe Service
   }
 
   @Get('/titulo/:titulo')
   @HttpCode(HttpStatus.OK)
-  findAllByTitulo(@Param('titulo') titulo: string): Promise<Postagem[]> {
+  findByAlltitulo(@Param('titulo') titulo: string): Promise<Postagem[]> {
     return this.postagemService.findAllByTitulo(titulo);
   }
 
